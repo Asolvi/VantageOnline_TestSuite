@@ -1,8 +1,26 @@
-name: hello-world
-'on': push
+name: regression-test
+on: 
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
-  my-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: my-step
-        run: echo "Hello World!"
+  e2e-tests: 
+    name: run-reg-test
+
+    runs-on: windows-latest  #ubuntu-latest
+
+    steps: 
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: microsoft/playwright-github-action@v1
+           
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+           
+    
+
