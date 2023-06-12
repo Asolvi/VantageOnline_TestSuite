@@ -1,5 +1,6 @@
 import { Browser,Page, expect,chromium } from '@playwright/test';
-import { appVar } from '../VantageOnlineAutomationNew/appVariables/appVariables'
+// import { appVar } from '../VantageOnlineAutomationNew/appVariables/appVariables'
+import { appVar } from './appVariables/appVariables'
 
 const username = process.env.MEETUP_USERNAME ?? '';
 const password = process.env.MEETUP_PASSWORD ?? '';
