@@ -9,7 +9,7 @@ jobs:
   e2e-tests: 
     name: run-reg-test
 
-    runs-on: windows-latest  #ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps: 
       - name: CheckOut
