@@ -28,3 +28,10 @@ jobs:
 
       - name: Run tests
         run: npx playwright test createACustomerModule --workers 1 --project chromium --headed
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
