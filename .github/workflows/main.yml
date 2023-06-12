@@ -27,7 +27,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run tests
-        run: npx playwright test createACustomerModule --workers 1 --project chromium --headed
+        run: npx playwright test --workers 1 --project chromium --headed
 
       - uses: actions/upload-artifact@v3
         if: always()
