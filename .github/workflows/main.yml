@@ -1,4 +1,4 @@
-name: goLangPOC-test
+name: VO-Test-Suite
 on: 
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   e2e-tests: 
-    name: run-poc-test
+    name: run-vo-test
 
     runs-on: windows-latest  #ubuntu-latest
 
@@ -27,10 +27,16 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Getting User Credentials secrets
-        run: npx playwright install --with-deps
+        env: 
+           UNAME:   ${{secrets.UN}}
+           PASSORD:   ${{secrets.PW}}
+
+        run: | 
+            echo "$UNAME"
+            echo "$PASSORD"
 
       - name: Run tests
-        run: $env:USERNAME='teamasolvirefine@gmail.com';$env:PASSWORD='Vantage@123';npx playwright test --workers 1 --project="chromium" --headed
+        run: $env:USERNAME='{{secrets.UN}}';$env:PASSWORD='{{secrets.PW}}';npx playwright test --workers 1 --project="chromium" --headed
 
       - uses: actions/upload-artifact@v3
         if: always()
