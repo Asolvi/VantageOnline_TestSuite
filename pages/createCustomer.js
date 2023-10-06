@@ -38,6 +38,7 @@ exports.CreateCustomerPage = class CreateCustomerPage
         await test.step("Fill the Name,Addr1,Town,County,Postcode details in the Customer Page", async()=>
         {
             await this.customerName_textbox.click();
+            console.log('The customerName created is ' + CustName);
             await this.customerName_textbox.fill(CustName);
             await this.customerAddr1_textbox.click();
             await this.customerAddr1_textbox.fill(CustAddr1);

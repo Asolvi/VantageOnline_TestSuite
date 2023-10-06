@@ -48,7 +48,7 @@ exports.CreateItemPage = class CreateItemPage
                     await this.stock_tab.click();
                     await this.new_link.click();
                     await this.stock_menuItem.click();
-                       }
+                }
                )
                 await test.step("Fill the Part,Desc,Manf,Category,Supplier,Cost,Price details in the Item Page", async()=>
                 {
@@ -56,6 +56,7 @@ exports.CreateItemPage = class CreateItemPage
                     const Isupp = ItemSupp;
                     const Icategory = ItemCategory;                   
 
+                    console.log('The '+ ItVar + ' created is ' + ItemPart);
                     await this.itemPartNo_textbox.click();
                     await this.itemPartNo_textbox.fill(ItemPart);
                     await this.itemDesc_textbox.click();

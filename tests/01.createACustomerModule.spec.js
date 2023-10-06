@@ -4,6 +4,8 @@ import { CreateContactPerson } from '../pages/contactPerson'
 import { CreateSite } from '../pages/site'
 import { testData } from '../utils/excelUtils'
 import { appVar } from '../appVariables/appVariables'
+import { randomNo } from '../utils/randomNo'
+import { releaseNo } from '../utils/releaseNo'
 
 test.beforeEach(async ({ page }) => {
     //await page.goto('https://stage.vantage.online/#');
@@ -16,6 +18,8 @@ test('TestSuite_01_VO_Regression_CreateACustomer', async ({ page }) => {
     const Customer = new CreateCustomerPage(page)
     const ContactPerson = new CreateContactPerson(page)
     const Site = new CreateSite(page)
+    const rand = randomNo()
+    const rel = releaseNo()
 
     const CustName =  testData('CreateACustomer','TC_01_VO_Regression_CreateACustomer','CustName')
     const CustAddr1 =  testData('CreateACustomer','TC_01_VO_Regression_CreateACustomer','CustAddr1')
@@ -38,7 +42,7 @@ test('TestSuite_01_VO_Regression_CreateACustomer', async ({ page }) => {
     
     await test.step("TC_001_VO_CreateACustomer", async()=>
         {
-          await Customer.customerCreation(CustName,CustAddr1,CustTown,CustCounty,CustPostCode,CustArea,CustPhone)
+          await Customer.customerCreation(rel+CustName+rand,CustAddr1,CustTown,CustCounty,CustPostCode,CustArea,CustPhone)
           
         })
     await test.step("TC_002_VO_CreateACustomerContactPerson", async()=>

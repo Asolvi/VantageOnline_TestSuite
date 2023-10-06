@@ -35,6 +35,8 @@ exports.CreateSupplierPage = class CreateSupplierPage
         })
         await test.step("Fill the Name,Addr1,Town,Postcode details in the Supplier Page", async()=>
         {
+            console.log('The supplierName created is ' + SuppName);
+            this.SuppName = SuppName
             await this.supplierName_textbox.click();
             await this.supplierName_textbox.fill(SuppName);
             await this.supplierAddr1_textbox.click();
@@ -90,7 +92,7 @@ exports.CreateSupplierPage = class CreateSupplierPage
             this.SuppFullName = accNo+" "+name+" "+postCode
             //SuppFullName = accNo+" "+name+" "+postCode
             //console.log(SuppFullName);
-            console.log(this.SuppFullName);
+            //console.log(this.SuppFullName);
             return this.SuppFullName
         })
     }

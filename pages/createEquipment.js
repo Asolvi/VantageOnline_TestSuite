@@ -33,6 +33,8 @@ exports.CreateEquipmentPage = class CreateEquipmentPage
             await this.equipmentItem_textbox.click();
             await this.page.getByRole('treeitem', { name: EqItem }).click();
 
+            await this.page.waitForTimeout(3000);
+
             await this.equipmentSerialNo_textbox.click();
             await this.equipmentSerialNo_textbox.fill(EquipSerialNo);
             
@@ -41,6 +43,7 @@ exports.CreateEquipmentPage = class CreateEquipmentPage
         await test.step("Click the save button", async()=>
         {
             await this.equipmentSave_btn.click();
+            await this.page.waitForTimeout(3000);
         })
         
 

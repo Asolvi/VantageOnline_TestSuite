@@ -1,5 +1,9 @@
 import { defineConfig, devices,PlaywrightTestConfig } from '@playwright/test';
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+export const storageStatePath = 'storage-state/storageState.json';
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -11,8 +15,8 @@ require('dotenv').config();
  */
 //export default defineConfig({
 const config: PlaywrightTestConfig = {
-  globalSetup:"./global-setup",
-  testDir: './tests',
+  //globalSetup:"./global-setup",
+  //testDir: './tests',
   /* Maximum time one test can run for. */
   timeout: 200 * 1000,
   //expect: {
@@ -44,21 +48,30 @@ const config: PlaywrightTestConfig = {
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    storageState:'./LoginAuth.json',
+    //trace: 'on-first-retry',
+    //storageState:'./LoginAuth.json',
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup',
+      testMatch: 'login.setup.ts',
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],viewport: { width: 1920, height: 1080 },storageState: storageStatePath,
+        //browserName: 'chromium',
+        //storageState: storageStatePath,
+      },
+      dependencies: ['setup'],
     },
 
-   //  {
-   //    name: 'firefox',
-   //    use: { ...devices['Desktop Firefox'] },
-   //  },
+     {
+       name: 'firefox',
+       use: { ...devices['Desktop Firefox'] },
+     },
 
     // {
     //   name: 'webkit',
@@ -76,10 +89,10 @@ const config: PlaywrightTestConfig = {
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { channel: 'msedge' },
-    // },
+     {
+       name: 'Microsoft Edge',
+       use: { channel: 'msedge' },
+     },
     // {
     //   name: 'Google Chrome',
     //   use: { channel: 'chrome' },

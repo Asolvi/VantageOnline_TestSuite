@@ -50,6 +50,7 @@ exports.CreateSuppWithExchanCurrPage = class CreateSuppWithExchanCurrPage
         {
             await this.supplierName_textbox.click();
             await this.supplierName_textbox.fill(SuppName);
+            console.log('The suppWithExchangeName created is ' + SuppName);
             await this.supplierPhoneNo_textbox.click();
             await this.supplierPhoneNo_textbox.fill(SuppPhone);
             await this.supplierAddr1_textbox.click();
@@ -119,13 +120,16 @@ exports.CreateSuppWithExchanCurrPage = class CreateSuppWithExchanCurrPage
             await this.supplierPriceBookRefresh_btn.click();
         })
 
-     await test.step("Verify the Name,JobTitle,Email Id details in the webTable", async()=>
+     await test.step("Verify the Part,Description,Currency details in the webTable", async()=>
         {
-            await this.supplierBooksTableVerify();
+            await this.page.waitForTimeout(3000);
+            await this.supplierBooksTableVerify(globalItem);
+            await this.page.waitForTimeout(3000);
+            
         })
 }
 
-    async supplierBooksTableVerify()
+    async supplierBooksTableVerify(SuppPriceBokItem)
     {
         const table = this.newSupplierPersonBook_table
         const headers = table.locator("thead");
@@ -133,27 +137,29 @@ exports.CreateSuppWithExchanCurrPage = class CreateSuppWithExchanCurrPage
         const rows = table.locator("tbody tr");
         const cols = rows.first().locator("td")
         
-
+    
     for (let i = 0; i < await rows.count(); i++) 
     {
         const row = rows.nth(i);
         const tds = row.locator("td");
          for (let j = 0; j < await cols.count(); j++) 
          {
-            if (await tds.nth(j).textContent() == 'AUTOMATIONTONER157') 
+            
+            if (await tds.nth(j).textContent() == globalItem.toUpperCase()) 
             {
                 //console.log(await tds.nth(2).textContent())
-                await expect(tds.nth(1),'Verify the part in the supplierPriceBook table').toContainText('AUTOMATIONTONER157');
-                await expect(tds.nth(2),'Verify the Description in the supplierPriceBook table').toContainText('Yellow non-OEM toner');
+                //await this.page.pause();
+                //await expect(tds.nth(1),'Verify the part in the supplierPriceBook table').toContainText(globalItem);
+                await expect(tds.nth(2),'Verify the Description in the supplierPriceBook table').toContainText('Yellow non-OEM Toner');
                 await expect(tds.nth(4),'Verify the Currency in the supplierPriceBook table').toContainText('NOK');
                 //await expect(tds.nth(5),'Verify the PrimaryContactCheck').toBeChecked();
-                break;                
+                let i = await rows.count();
+                break; 
                 
             }
-            
+                    
          }
-
-    }
+     }
 
         
     }

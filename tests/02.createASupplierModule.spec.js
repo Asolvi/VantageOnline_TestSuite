@@ -3,6 +3,8 @@ import { CreateSupplierPage } from '../pages/createSupplier'
 import { CreateSupplierContactPerson } from '../pages/supplierContactPerson'
 import { testData } from '../utils/excelUtils'
 import { writeExcelTestData } from '../utils/writeExcelUtils'
+import { randomNo } from '../utils/randomNo'
+import { releaseNo } from '../utils/releaseNo'
 
 import { appVar } from '../appVariables/appVariables'
 
@@ -15,6 +17,8 @@ test('TestSuite_02_VO_Regression_CreateASupplier', async ({ page }) => {
 
     const Supplier = new CreateSupplierPage(page)
     const SupplierContactPerson = new CreateSupplierContactPerson(page)
+    const rand = randomNo()
+    const rel = releaseNo()
     
               
     const SuppName =  testData('CreateASupplier','TC_01_VO_Regression_CreateASupplier','SuppName')
@@ -33,7 +37,10 @@ test('TestSuite_02_VO_Regression_CreateASupplier', async ({ page }) => {
     
     await test.step("TC_001_VO_CreateASupplier", async()=>
         {
-          await Supplier.supplierCreation(SuppName,SuppAddr1,SuppTown,SuppPostCode,SuppCountry,SuppDelivery,SuppCurrency)
+          await Supplier.supplierCreation(rel+SuppName+rand,SuppAddr1,SuppTown,SuppPostCode,SuppCountry,SuppDelivery,SuppCurrency)          
+          //global.newGlobalVar = 'value we want in another file'
+          global.globalSupplierName = await Supplier.SuppName;
+          console.log('The global SupplierName created is ' + globalSupplierName);
           //console.log("The supplier full Name is " + Supplier.SuppFullName);
           //const supplierFullName = Supplier.SuppFullName
           //const supplierFullName= Supplier.SuppFullName
