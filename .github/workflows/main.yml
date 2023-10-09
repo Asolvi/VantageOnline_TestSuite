@@ -36,7 +36,7 @@ jobs:
             echo "$PASSORD"
 
       - name: Run tests
-        run: $env:USERNAME='{{secrets.UN}}';$env:PASSWORD='{{secrets.PW}}';npx playwright test --workers 1 --project="chromium" --headed
+        run: $env:USERNAME='${{secrets.UN}}';$env:PASSWORD='${{secrets.PW}}';npx playwright test --workers 1 --project="chromium" --headed
 
       - uses: actions/upload-artifact@v3
         if: always()
